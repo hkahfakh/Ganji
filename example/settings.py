@@ -16,6 +16,7 @@ NEWSPIDER_MODULE = 'example.spiders'
 
 ITEM_PIPELINES = {
     'example.pipelines.ExamplePipeline': 1,
+    'example.pipelines.ToExcelPipeline': 2,
 }
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'example (+http://www.yourdomain.com)'

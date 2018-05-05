@@ -9,7 +9,7 @@ class MSpider(scrapy.Spider):
     #设定域名
     allowed_domains = ["bj.ganji.com"]
     #填写爬取地址
-    start_urls = ["http://bj.ganji.com/fang1/o1","http://bj.ganji.com/fang1/o2"]
+    start_urls = ["http://bj.ganji.com/fang1/o1"]
     #编写爬取方法rtr
     def parse(self, response):
 
@@ -21,6 +21,8 @@ class MSpider(scrapy.Spider):
         for box in response.xpath('//div[@class="f-list-item ershoufang-list"]'):
             #获取div中的课程标题
             item['title'] = box.xpath('.//dd[@class="dd-item title"]/a[@class="js-title value title-font"]/text()').extract()[0]
+            # 获取网址
+            item['url'] = 'http://bj.ganji.com' + box.xpath('.//@href').extract()[0]
             #获取div中的价格
             item['price'] = box.xpath('.//dd[@class="dd-item info"]/div[@class="price"]/span[@class="num"]/text()').extract()[0]
             #获取房屋面积
@@ -30,9 +32,9 @@ class MSpider(scrapy.Spider):
             yield item
 
         next_page = 'http://bj.ganji.com' + response.css('div.pageBox')[1].xpath('.//a[@class="next"]/@href').extract_first()
-        if next_page is not None:
+        '''if next_page is not None:
             next_page = response.urljoin(next_page)
-            yield scrapy.Request(next_page, callback=self.parse, headers={'referer': next_page})
+            yield scrapy.Request(next_page, callback=self.parse, headers={'referer': next_page})'''
 
 
 
