@@ -32,9 +32,9 @@ class MSpider(scrapy.Spider):
             yield item
 
         next_page = 'http://bj.ganji.com' + response.css('div.pageBox')[1].xpath('.//a[@class="next"]/@href').extract_first()
-        '''if next_page is not None:
+        if next_page is not None:
             next_page = response.urljoin(next_page)
-            yield scrapy.Request(next_page, callback=self.parse, headers={'referer': next_page})'''
+            yield scrapy.Request(next_page, callback=self.parse, headers={'referer': next_page})
 
 
 
